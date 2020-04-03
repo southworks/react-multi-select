@@ -135,8 +135,13 @@ var SelectPanel = function (_Component) {
             var searchText = this.state.searchText;
             var _props2 = this.props,
                 options = _props2.options,
-                customFilterOptions = _props2.filterOptions;
+                customFilterOptions = _props2.filterOptions,
+                limit = _props2.limit;
 
+
+            if (searchText === undefined || searchText === "") {
+                return customFilterOptions ? customFilterOptions(options, searchText).splice(0, limit || 100) : (0, _fuzzyMatchUtils.filterOptions)(options, searchText).splice(0, limit || 100);
+            }
 
             return customFilterOptions ? customFilterOptions(options, searchText) : (0, _fuzzyMatchUtils.filterOptions)(options, searchText);
         }
