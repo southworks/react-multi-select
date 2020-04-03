@@ -23,7 +23,8 @@ type Props = {
     disableSearch?: boolean,
     hasSelectAll: boolean,
     filterOptions?: (options: Array<Option>, filter: string) => Array<Option>,
-    overrideStrings?: {[string]: string}
+    overrideStrings?: {[string]: string},
+    limit?: number
 };
 
 type State = {
@@ -113,7 +114,13 @@ class SelectPanel extends Component<Props, State> {
 
     filteredOptions() {
         const {searchText} = this.state;
-        const {options, filterOptions: customFilterOptions} = this.props;
+        const {options, filterOptions: customFilterOptions, limit} = this.props;
+
+        if (searchText === undefined || searchText === "") {
+            return customFilterOptions ?
+                customFilterOptions(options, searchText).splice(0, limit || 100) :
+                filterOptions(options, searchText).splice(0, limit || 100);
+        }
 
         return customFilterOptions ?
             customFilterOptions(options, searchText) :

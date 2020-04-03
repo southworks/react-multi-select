@@ -40,7 +40,8 @@ type Props = {
     hasSelectAll: boolean,
     filterOptions?: (options: Array<Option>, filter: string) => Array<Option>,
     overrideStrings?: {[string]: string},
-    labelledBy: string
+    labelledBy: string,
+    limit?: number
 };
 
 class MultiSelect extends Component<Props> {
@@ -117,6 +118,7 @@ class MultiSelect extends Component<Props> {
             hasSelectAll,
             overrideStrings,
             labelledBy,
+            limit,
         } = this.props;
 
         return <div className="multi-select">
@@ -135,6 +137,7 @@ class MultiSelect extends Component<Props> {
                     disableSearch,
                     filterOptions,
                     overrideStrings,
+                    limit,
                 }}
                 disabled={disabled}
                 labelledBy={labelledBy}
